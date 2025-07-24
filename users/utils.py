@@ -2,6 +2,7 @@ import random
 import string
 
 from django.contrib.auth import get_user_model
+from django.core.cache import cache
 
 
 def generate_code(
@@ -26,3 +27,6 @@ def generate_unique_invite_code(length: int = 6) -> str:
     return invite_code
 
 
+def verify_auth_code(phone_number, code):
+    cached_code = cache.get(f"auth_code_{phone_number}")
+    return cached_code == code
