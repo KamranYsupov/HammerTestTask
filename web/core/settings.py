@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'django_extensions',
     
     # Приложения
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -40,7 +41,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'web.core.urls'
+ROOT_URLCONF = 'core.urls'
 
 TEMPLATES = [
     {
@@ -58,7 +59,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'web.core.wsgi.application'
+WSGI_APPLICATION = 'core.wsgi.application'
 
 
 
@@ -105,10 +106,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Настройки бота
-BOT_TOKEN = os.getenv('BOT_TOKEN')
-BOT_USERNAME = os.getenv('BOT_USERNAME')
-BOT_LINK = f'https://t.me/{BOT_USERNAME}'
-MAX_MESSAGE_PER_SECOND = int(os.getenv('MAX_MESSAGE_PER_SECOND', 1))
+AUTH_USER_MODEL = 'users.User'
 
-TELEGRAM_API_URL = 'https://api.telegram.org'
+
