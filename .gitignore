@@ -1,0 +1,4 @@
+poetry.lock
+web/db.sqlite3
+.env
+.idea
