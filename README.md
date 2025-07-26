@@ -26,3 +26,8 @@ REDIS_PORT=6379
 ```commandline
 docker compose up --build -d
 ```
+<br>
+
+<b>Готово!</b><br>
+<b>Swagger:</b> <em>http://127.0.0.1/api/docs/swagger/</em><br>
+<b>ReDoc:</b> <em>http://127.0.0.1/api/docs/redoc/</em><br>

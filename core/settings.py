@@ -14,7 +14,7 @@ DEBUG = os.getenv('DEBUG', False)
 
 ALLOWED_HOSTS = ['*']
 
-
+PROJECT_NAME = os.getenv('PROJECT_NAME')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     # Библиотеки
     'django_extensions',
     'rest_framework',
+    'drf_spectacular',
     
     # Приложения
     'users',
@@ -47,7 +48,7 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -115,6 +116,13 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+   'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': f'{PROJECT_NAME.upper()} API',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
 }
 
 REDIS_HOST = os.getenv('REDIS_HOST', 'redis')
