@@ -4,19 +4,44 @@ from rest_framework import serializers
 User = get_user_model()
 
 
-class PhoneNumberSerializerMixin:
+class PhoneNumberSerializerMixin(serializers.Serializer):
     phone_number = serializers.CharField()
 
 
-class PhoneSerializer(serializers.Serializer, PhoneNumberSerializerMixin):
+class InviteCodeField(serializers.CharField):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.max_length = kwargs.pop('max_length', 6)
+
+
+class PhoneSerializer(PhoneNumberSerializerMixin):
     pass
 
 
-class CodeSerializer(serializers.Serializer, PhoneNumberSerializerMixin):
+class CodeSerializer(PhoneNumberSerializerMixin):
     code = serializers.CharField()
 
+
 class ActivateInviteSerializer(serializers.Serializer):
-    invite_code = serializers.CharField(max_length=6)
+    invite_code = InviteCodeField()
+
+
+class AuthUserSerializer(serializers.Serializer):
+    refresh = serializers.CharField()
+    access = serializers.CharField()
+    invite_code = InviteCodeField(
+        allow_blank=True,
+    )
+    activated_invite_code = InviteCodeField(
+        default=None,
+        allow_null=True,
+        allow_blank=True,
+    )
+
+
+class TokenRefreshSerializer(serializers.Serializer):
+    refresh = serializers.CharField()
+
 
 class UserProfileSerializer(serializers.ModelSerializer):
     activated_invite_code = serializers.CharField(allow_null=True)

@@ -21,6 +21,7 @@ redis = "^6.2.0"
 gevent = "^25.5.1"
 djangorestframework = "^3.16.0"
 djangorestframework-simplejwt = "^5.5.1"
+django-redis = "^6.0.0"
 
 
 
