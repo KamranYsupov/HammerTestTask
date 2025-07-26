@@ -3,6 +3,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.cache import cache
 from django.db import transaction
+from drf_spectacular.utils import extend_schema
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, permissions
@@ -23,6 +24,7 @@ User = get_user_model()
 class RequestPhoneView(APIView):
     permission_classes = []
 
+    @extend_schema(parameters=[PhoneSerializer])
     def post(self, request):
         serializer = PhoneSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -36,6 +38,7 @@ class RequestPhoneView(APIView):
 class VerifyCodeView(APIView):
     permission_classes = []
 
+    @extend_schema(parameters=[CodeSerializer])
     def post(self, request):
         serializer = CodeSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -85,6 +88,7 @@ class ProfileView(APIView):
 class ActivateInviteCodeView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
+    @extend_schema(parameters=[ActivateInviteSerializer])
     def post(self, request):
         serializer = ActivateInviteSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -127,6 +131,7 @@ class ActivateInviteCodeView(APIView):
 class TokenRefreshView(APIView):
     permission_classes = []
 
+    @extend_schema(parameters=[TokenRefreshSerializer])
     def post(self, request):
         serializer = TokenRefreshSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
